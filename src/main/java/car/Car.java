@@ -4,25 +4,25 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
 public class Car {
-    private String size;
+    private CarSize carSize;
     private boolean isElectric;
 
     public Car() {
-        this.size = "medium";
+        this.carSize = CarSize.MEDIUM;
         this.isElectric = false;
     }
 
-    public Car(String size, boolean isElectric) {
-        this.size = size;
+    public Car(CarSize carSize, boolean isElectric) {
+        this.carSize = carSize;
         this.isElectric = isElectric;
     }
 
-    public String getSize() {
-        return size;
+    public CarSize getSize() {
+        return carSize;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setSize(CarSize carSize) {
+        this.carSize = carSize;
     }
 
     public boolean isElectric() {
@@ -35,6 +35,9 @@ public class Car {
 
     @Override
     public String toString() {
+        // TODO figure out how to print car size
+        String size = "";
+
         return (!isElectric) ? StringUtils.capitalize(size) + " Gasoline Car" : StringUtils.capitalize(size) + " Electric Car";
     }
 }
