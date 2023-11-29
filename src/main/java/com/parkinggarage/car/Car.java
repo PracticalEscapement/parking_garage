@@ -1,20 +1,20 @@
-package car;
+package com.parkinggarage.car;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
+
+import java.util.Objects;
 
 public class Car {
     private CarSize carSize;
     private boolean isElectric;
+    private String plateNumber;
 
-    public Car() {
-        this.carSize = CarSize.MEDIUM;
-        this.isElectric = false;
-    }
+    public Car() {}
 
-    public Car(CarSize carSize, boolean isElectric) {
+    public Car(CarSize carSize, boolean isElectric, String plateNumber) {
         this.carSize = carSize;
         this.isElectric = isElectric;
+        this.plateNumber = plateNumber;
     }
 
     public CarSize getSize() {
@@ -40,4 +40,5 @@ public class Car {
 
         return (!isElectric) ? StringUtils.capitalize(size) + " Gasoline Car" : StringUtils.capitalize(size) + " Electric Car";
     }
+
 }

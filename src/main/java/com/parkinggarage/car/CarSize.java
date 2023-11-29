@@ -1,4 +1,4 @@
-package car;
+package com.parkinggarage.car;
 
 public enum CarSize {
     SMALL,
