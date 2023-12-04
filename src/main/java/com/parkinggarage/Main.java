@@ -2,14 +2,30 @@ package com.parkinggarage;
 
 import com.parkinggarage.car.Car;
 import com.parkinggarage.car.CarSize;
+import com.parkinggarage.exception.ParkingFullException;
+import com.parkinggarage.parking.ParkingSection;
+import com.parkinggarage.parking.ParkingType;
 
 public class Main {
-    public static void main(String[] args) {
-        Car myCar = new Car(CarSize.MEDIUM, false, "xxxxx");
-        Car hisCar = new Car(CarSize.LARGE, true, "yyyyyy");
+    public static void main(String[] args) throws ParkingFullException {
+        Car car1 = new Car(CarSize.MEDIUM, true, "xxxxx");
+        Car car2 = new Car(CarSize.SMALL, true, "yyyyyy");
+        Car car3 = new Car(CarSize.LARGE, true, "ZZZZZZ");
 
-        System.out.println(myCar.toString());
-        System.out.println(hisCar.toString());
+        System.out.println(car1);
+        System.out.println(car2);
+        System.out.println(car3);
+
+        ParkingSection electricHourly = new ParkingSection(ParkingType.ELECTRIC_HOURLY, 10);
+        electricHourly.parkCar(car1);
+        electricHourly.parkCar(car2);
+        electricHourly.parkCar(car3);
+
+
+
+
+
+
 
     }
 }
