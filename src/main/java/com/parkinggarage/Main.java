@@ -16,10 +16,11 @@ public class Main {
         System.out.println(car2);
         System.out.println(car3);
 
-        ParkingSection electricHourly = new ParkingSection(ParkingType.ELECTRIC_HOURLY, 10);
+        ParkingSection electricHourly = new ParkingSection(ParkingType.ELECTRIC_HOURLY, 10, 15.0);
         electricHourly.parkCar(car1);
         electricHourly.parkCar(car2);
         electricHourly.parkCar(car3);
+        electricHourly.getParkedCars();
 
 
 
