@@ -5,21 +5,25 @@ import com.parkinggarage.exception.ParkingFullException;
 import com.parkinggarage.service.ParkingService;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
 public class ParkingSection implements ParkingService {
-
     private ParkingType parkingType;
     private int numSpaces;
+    private final double rate;
     private final Deque<ParkingSpace> sectionStack;
-    private Ticket[] parkedCars;
+    private List<Ticket> parkedCars;
 
-    public ParkingSection(ParkingType parkingType, int numSpaces) {
+    public ParkingSection(ParkingType parkingType, int numSpaces, double rate) {
         this.parkingType = parkingType;
         this.numSpaces = numSpaces;
+        this.rate = rate;
+
         this.sectionStack = new ArrayDeque<>();
-        this.parkedCars = new Ticket[numSpaces];
+        this.parkedCars = new ArrayList<>();
+
         initializeParkingSpaces(numSpaces);
     }
 
@@ -27,11 +31,41 @@ public class ParkingSection implements ParkingService {
         for (int i = 1; i<=numSpaces; i++) {
             sectionStack.add(new ParkingSpace(i));
         }
-        System.out.println(sectionStack.toString());
     }
 
-    public ParkingType getParkingType() {
-        return parkingType;
+    private Ticket generateTicket(ParkingType lotSection, ParkingSpace parkingSpace, Car car) {
+        return new Ticket(lotSection, parkingSpace, car);
+    }
+
+    public void parkCar(Car car) throws ParkingFullException {
+        if (isSpaceAvailable()) {
+            ParkingSpace space = sectionStack.getFirst();
+            Ticket ticket = generateTicket(parkingType, space, car);
+
+            space.setOccupiedStatus();
+            sectionStack.pop();
+            parkedCars.add(ticket);
+
+            System.out.println(getNumAvailableSpaces() + " spaces left.");
+        } else {
+            throw new ParkingFullException("No Available spaces");
+        }
+    }
+
+    public void unParkCar(Ticket ticket) {
+
+    }
+
+    public void getParkedCars() {
+        if (parkedCars.isEmpty()) {
+            System.out.println("Lot is empty");
+        } else {
+            System.out.println("List of parked cars in " + parkingType + " section");
+            System.out.println("========================================================");
+            for (int i=0; i<parkedCars.size(); i++) {
+                System.out.println(parkedCars.get(i).toString());
+            }
+        }
     }
 
     public int getNumTotalSpaces() {
@@ -45,33 +79,13 @@ public class ParkingSection implements ParkingService {
         return !sectionStack.isEmpty();
     }
 
-    //
-    private void generateTicket(ParkingType lotSection, ParkingSpace parkingSpace, Car car) {
-       Ticket myTicket = new Ticket(lotSection, parkingSpace, car);
-       myTicket.printTicket();
+    public ParkingType getParkingType() {
+        return parkingType;
     }
 
-    public void parkCar(Car car) throws ParkingFullException {
-        if (isSpaceAvailable()) {
-            ParkingSpace space = sectionStack.getFirst();
-            generateTicket(parkingType, space, car);
-            sectionStack.pop();
-            System.out.println(getNumAvailableSpaces() + " spaces left.");
-        } else {
-            throw new ParkingFullException("No Available spaces");
-        }
+    public double getRate() {
+        return rate;
     }
-
-    public void getParkedCars() {
-        if (parkedCars.length == 0) {
-            System.out.println("Lot is empty");
-        } else {
-            for (Ticket ticket : parkedCars) {
-                ticket.printTicket();
-            }
-        }
-    }
-
 
     @Override
     public String toString() {

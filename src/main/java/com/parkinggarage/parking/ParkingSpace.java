@@ -26,8 +26,8 @@ public class ParkingSpace {
         return occupied;
     }
 
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
+    public void setOccupiedStatus() {
+        this.occupied = !occupied;
     }
 
     @Override
