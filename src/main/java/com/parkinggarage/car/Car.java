@@ -2,12 +2,10 @@ package com.parkinggarage.car;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Objects;
-
 public class Car {
     private CarSize carSize;
     private boolean isElectric;
-    private String plateNumber;
+    protected String plateNumber;
 
     public Car() {}
 
@@ -33,12 +31,19 @@ public class Car {
         isElectric = electric;
     }
 
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
+    }
     @Override
     public String toString() {
         // TODO figure out how to print car size
-        String size = "";
+
+        String size = carSize.toString();
 
         return (!isElectric) ? StringUtils.capitalize(size) + " Gasoline Car" : StringUtils.capitalize(size) + " Electric Car";
     }
-
 }
