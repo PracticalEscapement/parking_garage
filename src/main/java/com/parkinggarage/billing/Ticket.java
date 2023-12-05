@@ -1,5 +1,6 @@
 package com.parkinggarage.billing;
 
+import com.parkinggarage.parking.ParkingComplex;
 import com.parkinggarage.parking.ParkingSpace;
 import com.parkinggarage.car.Car;
 import com.parkinggarage.parking.ParkingType;
@@ -27,8 +28,8 @@ public class Ticket {
         return ticketNumber;
     }
 
-    public int getParkingSpace() {
-        return parkingSpace.getSpaceNumber();
+    public ParkingSpace getParkingSpace() {
+        return parkingSpace;
     }
 
     public String getCar() {

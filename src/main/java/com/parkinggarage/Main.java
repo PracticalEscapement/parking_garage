@@ -1,5 +1,6 @@
 package com.parkinggarage;
 
+import com.parkinggarage.billing.Ticket;
 import com.parkinggarage.car.Car;
 import com.parkinggarage.car.CarSize;
 import com.parkinggarage.exception.ParkingFullException;
@@ -18,9 +19,14 @@ public class Main {
 
         ParkingSection electricHourly = new ParkingSection(ParkingType.ELECTRIC_HOURLY, 10, 15.0);
         electricHourly.parkCar(car1);
-        electricHourly.parkCar(car2);
-        electricHourly.parkCar(car3);
+        Ticket ticketCar2 = electricHourly.parkCar(car2);
+        Ticket ticketCar3 = electricHourly.parkCar(car3);
         electricHourly.getParkedCars();
+
+        System.out.println("\n\n\n");
+
+        electricHourly.unParkCar(ticketCar2);
+        electricHourly.unParkCar(ticketCar3);
 
 
 
