@@ -9,16 +9,18 @@ public class Ticket {
     private ParkingSpace parkingSpace;
     private Car car;
     private ParkingType lotSection;
+    private double sectionRate;
 
-    public Ticket(ParkingType lotSection, ParkingSpace parkingSpace, Car car) {
+    public Ticket(ParkingType lotSection, ParkingSpace parkingSpace, Car car, double sectionRate) {
         this.lotSection = lotSection;
         this.parkingSpace = parkingSpace;
         this.car = car;
+        this.sectionRate = sectionRate;
         ticketNumber++;
     }
 
     public void printTicket() {
-        System.out.println(lotSection + ": " + ticketNumber + " " + car.getSize() + " " + ((car.isElectric()) ? "Electric" : "Gasoline") + " " + "Rate: $$$");
+        System.out.println(lotSection + ": " + ticketNumber + " " + car.getSize() + " " + ((car.isElectric()) ? "Electric" : "Gasoline") + " " + "Rate: " + sectionRate);
     }
 
     public static int getTicketNumber() {
@@ -38,6 +40,6 @@ public class Ticket {
         return "|" + lotSection.toString() + "| " + "Space Number: " + parkingSpace.getSpaceNumber() + '\n' +
                 "\t-" + "Now " + (parkingSpace.isOccupied() ? "Occupied" : "Vacant") + '\n' +
                 "\t-" + "Licence Plate: " + car.getPlateNumber() + "\n" +
-                "\t-" + "Rate: ";
+                "\t-" + "Rate: " + sectionRate;
     }
 }
