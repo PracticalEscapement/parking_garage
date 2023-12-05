@@ -10,9 +10,9 @@ import java.util.Deque;
 import java.util.List;
 
 public class ParkingSection implements ParkingService {
-    private ParkingType parkingType;
+    private final ParkingType parkingType;
     private int numSpaces;
-    private final double rate;
+    private double rate;
     private final Deque<ParkingSpace> sectionStack;
     private List<Ticket> parkedCars;
 
@@ -33,14 +33,14 @@ public class ParkingSection implements ParkingService {
         }
     }
 
-    private Ticket generateTicket(ParkingType lotSection, ParkingSpace parkingSpace, Car car) {
-        return new Ticket(lotSection, parkingSpace, car);
+    private Ticket generateTicket(ParkingType lotSection, ParkingSpace parkingSpace, Car car, double rate) {
+        return new Ticket(lotSection, parkingSpace, car, rate);
     }
 
     public void parkCar(Car car) throws ParkingFullException {
         if (isSpaceAvailable()) {
             ParkingSpace space = sectionStack.getFirst();
-            Ticket ticket = generateTicket(parkingType, space, car);
+            Ticket ticket = generateTicket(parkingType, space, car, rate);
 
             space.setOccupiedStatus();
             sectionStack.pop();
@@ -60,7 +60,7 @@ public class ParkingSection implements ParkingService {
         if (parkedCars.isEmpty()) {
             System.out.println("Lot is empty");
         } else {
-            System.out.println("List of parked cars in " + parkingType + " section");
+            System.out.println("\n\nList of parked cars in " + parkingType + " section");
             System.out.println("========================================================");
             for (int i=0; i<parkedCars.size(); i++) {
                 System.out.println(parkedCars.get(i).toString());
