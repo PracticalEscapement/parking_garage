@@ -1,4 +1,5 @@
 package com.parkinggarage.parking;
+import com.parkinggarage.billing.Receipt;
 import com.parkinggarage.billing.Ticket;
 import com.parkinggarage.car.Car;
 import com.parkinggarage.exception.ParkingFullException;
@@ -37,7 +38,7 @@ public class ParkingSection implements ParkingService {
         return new Ticket(lotSection, parkingSpace, car, rate);
     }
 
-    public void parkCar(Car car) throws ParkingFullException {
+    public Ticket parkCar(Car car) throws ParkingFullException {
         if (isSpaceAvailable()) {
             ParkingSpace space = sectionStack.getFirst();
             Ticket ticket = generateTicket(parkingType, space, car, rate);
@@ -47,13 +48,29 @@ public class ParkingSection implements ParkingService {
             parkedCars.add(ticket);
 
             System.out.println(getNumAvailableSpaces() + " spaces left.");
+            return ticket;
         } else {
             throw new ParkingFullException("No Available spaces");
         }
     }
 
     public void unParkCar(Ticket ticket) {
+        parkedCars.stream()
+                .filter(t -> t.equals(ticket))
+                .findFirst()
+                .map(t -> {
+                    ParkingSpace space = t.getParkingSpace();
+                    space.setOccupiedStatus();
+                    sectionStack.add(space);
+                    return generateReceipt(t);
+                });
+    }
 
+    // The return type will be Receipt.
+    private String generateReceipt(Ticket ticket) {
+        // TODO create new recipet
+        System.out.println("This is a receipt");
+        return "RECEIPT";
     }
 
     public void getParkedCars() {

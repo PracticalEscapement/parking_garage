@@ -1,4 +1,4 @@
 package com.parkinggarage.billing;
 
-public class Recipt {
+public class Receipt {
 }
