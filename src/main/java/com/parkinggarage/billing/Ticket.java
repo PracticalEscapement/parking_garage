@@ -8,7 +8,7 @@ import com.parkinggarage.service.ReceiptService;
 import java.util.Random;
 
 public class Ticket implements ReceiptService {
-    public static int ticketNumber = 100;
+    private int ticketNumber;
     private ParkingSpace parkingSpace;
     private Car car;
     private ParkingType lotSection;
@@ -23,7 +23,7 @@ public class Ticket implements ReceiptService {
         this.parkingSpace = parkingSpace;
         this.car = car;
         this.sectionRate = sectionRate;
-        ticketNumber++;
+        this.ticketNumber = TicketCount.incrementTicketNumber();
     }
 
     // I wasn't sure about how to get a value for the hours spent at the lot,
@@ -41,7 +41,7 @@ public class Ticket implements ReceiptService {
         }
     }
 
-    public static int getTicketNumber() {
+    public int getTicketNumber() {
         return ticketNumber;
     }
 
@@ -64,6 +64,15 @@ public class Ticket implements ReceiptService {
                 "\t-" + "Now " + (parkingSpace.isOccupied() ? "Occupied" : "Vacant") + '\n' +
                 "\t-" + "Licence Plate: " + car.getPlateNumber() + "\n" +
                 "\t-" + "Rate: " + sectionRate;
+    }
+
+    static class TicketCount {
+        private static int count = 100;
+
+        public static int incrementTicketNumber() {
+            return count++;
+        }
+
     }
 
 

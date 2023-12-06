@@ -45,7 +45,9 @@ public class Main {
         Ticket ticketCar1 = electricHourly.parkCar(car1);
         Ticket ticketCar2 = electricHourly.parkCar(car2);
         Ticket ticketCar3 = electricHourly.parkCar(car3);
+
         electricHourly.getParkedCars();
+        // un-park 2 cars
         electricHourly.unParkCar(ticketCar2);
         electricHourly.unParkCar(ticketCar3);
         electricHourly.getParkedCars();
