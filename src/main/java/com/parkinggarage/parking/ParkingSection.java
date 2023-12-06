@@ -28,6 +28,8 @@ public class ParkingSection implements ParkingService {
         initializeParkingSpaces(numSpaces);
     }
 
+    // Private method that add parking spaces to the section stack
+    // sectionStack represents the parking spaces in the parking section
     private void initializeParkingSpaces(int numSpaces) {
         for (int i = 1; i<=numSpaces; i++) {
             sectionStack.add(new ParkingSpace(i));
@@ -38,6 +40,8 @@ public class ParkingSection implements ParkingService {
         return new Ticket(lotSection, parkingSpace, car, rate);
     }
 
+    // when car is parked, the section stack has its first value(parking space)  removed and added
+    // to the arraylist of parked cars
     public Ticket parkCar(Car car) throws ParkingFullException {
         if (isSpaceAvailable()) {
             ParkingSpace space = sectionStack.getFirst();
@@ -47,13 +51,14 @@ public class ParkingSection implements ParkingService {
             sectionStack.pop();
             parkedCars.add(ticket);
 
-            System.out.println(getNumAvailableSpaces() + " spaces left.");
             return ticket;
         } else {
             throw new ParkingFullException("No Available spaces!");
         }
     }
 
+    // this method checks to see if the ticket is present within the parked car array
+    // if so, is removes the car, add a parking space back to the sectionStack, then generates a receipt
     public void unParkCar(Ticket ticket) {
         parkedCars.stream()
                 .filter(t -> t.equals(ticket))
@@ -78,6 +83,7 @@ public class ParkingSection implements ParkingService {
         return receipt.toString();
     }
 
+    // prints out list of all parked cars
     public void getParkedCars() {
         if (parkedCars.isEmpty()) {
             System.out.println("Lot is empty");
@@ -112,10 +118,7 @@ public class ParkingSection implements ParkingService {
 
     @Override
     public String toString() {
-        return "ParkingSection{" +
-                "parkingType=" + parkingType +
-                ", numSpaces=" + numSpaces +
-                '}';
+        return parkingType + ": " + numSpaces + " SPACES";
     }
 
 
