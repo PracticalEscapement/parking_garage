@@ -50,7 +50,7 @@ public class ParkingSection implements ParkingService {
             System.out.println(getNumAvailableSpaces() + " spaces left.");
             return ticket;
         } else {
-            throw new ParkingFullException("No Available spaces");
+            throw new ParkingFullException("No Available spaces!");
         }
     }
 
@@ -62,15 +62,20 @@ public class ParkingSection implements ParkingService {
                     ParkingSpace space = t.getParkingSpace();
                     space.setOccupiedStatus();
                     sectionStack.add(space);
-                    return generateReceipt(t);
+                    parkedCars.remove(t);
+                    try {
+                        return generateReceipt(t);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 });
     }
 
     // The return type will be Receipt.
-    private String generateReceipt(Ticket ticket) {
-        // TODO create new recipet
-        System.out.println("This is a receipt");
-        return "RECEIPT";
+    private String generateReceipt(Ticket ticket) throws Exception{
+        Receipt receipt = ticket.generateReceipt(ticket);
+        System.out.println(receipt.toString());
+        return receipt.toString();
     }
 
     public void getParkedCars() {
@@ -83,6 +88,7 @@ public class ParkingSection implements ParkingService {
                 System.out.println(parkedCars.get(i).toString());
             }
         }
+        System.out.println("\n\n");
     }
 
     public int getNumTotalSpaces() {
