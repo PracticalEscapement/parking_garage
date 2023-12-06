@@ -11,6 +11,8 @@ public class ParkingComplex {
     }
 
     public void getAllParkingSections() {
+        System.out.println("List of parking sections in parking complex\n" +
+                "==========================================================");
         for (ParkingSection section : parkingLot) {
             System.out.println(section.toString());
         }
