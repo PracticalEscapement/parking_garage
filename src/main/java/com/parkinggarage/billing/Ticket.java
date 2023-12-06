@@ -59,7 +59,8 @@ public class Ticket implements ReceiptService {
 
     @Override
     public String toString() {
-        return "|" + lotSection.toString() + "| " + "Space Number: " + parkingSpace.getSpaceNumber() + '\n' +
+        return "|" + lotSection.toString() + "| " + "Space Number:" + parkingSpace.getSpaceNumber() +
+                " Ticket#:" + ticketNumber + '\n' +
                 "\t-" + "Now " + (parkingSpace.isOccupied() ? "Occupied" : "Vacant") + '\n' +
                 "\t-" + "Licence Plate: " + car.getPlateNumber() + "\n" +
                 "\t-" + "Rate: " + sectionRate;
