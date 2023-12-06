@@ -6,6 +6,7 @@ import com.parkinggarage.parking.ParkingType;
 import com.parkinggarage.service.ReceiptService;
 
 import java.util.Random;
+
 public class Ticket implements ReceiptService {
     public static int ticketNumber = 100;
     private ParkingSpace parkingSpace;
@@ -13,7 +14,11 @@ public class Ticket implements ReceiptService {
     private ParkingType lotSection;
     private double sectionRate;
 
-    public Ticket(ParkingType lotSection, ParkingSpace parkingSpace, Car car, double sectionRate) {
+    public Ticket(ParkingType lotSection,
+                  ParkingSpace parkingSpace,
+                  Car car,
+                  double sectionRate
+    ) {
         this.lotSection = lotSection;
         this.parkingSpace = parkingSpace;
         this.car = car;
@@ -21,10 +26,8 @@ public class Ticket implements ReceiptService {
         ticketNumber++;
     }
 
-    public void printTicket() {
-        System.out.println(lotSection + ": " + ticketNumber + " " + car.getSize() + " " + ((car.isElectric()) ? "Electric" : "Gasoline") + " " + "Rate: " + sectionRate);
-    }
-
+    // I wasn't sure about how to get a value for the hours spent at the lot,
+    // so I generated a random int for hours.
     @Override
     public Receipt generateReceipt(Ticket ticket) throws Exception{
         if (ticket.lotSection.equals(ParkingType.DAILY) || ticket.lotSection.equals(ParkingType.ELECTRIC_DAILY)) {

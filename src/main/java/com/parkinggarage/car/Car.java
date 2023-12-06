@@ -3,11 +3,11 @@ package com.parkinggarage.car;
 import org.apache.commons.lang3.StringUtils;
 
 public class Car {
+    // CarSize is an enum that has a list of the different car sizes. I did not have the chance to do anything with this.
+    // I originally wanted to factor in the car size into the calculated cost.
     private CarSize carSize;
     private boolean isElectric;
     protected String plateNumber;
-
-    public Car() {}
 
     public Car(CarSize carSize, boolean isElectric, String plateNumber) {
         this.carSize = carSize;
@@ -25,10 +25,6 @@ public class Car {
 
     public boolean isElectric() {
         return isElectric;
-    }
-
-    public void setElectric(boolean electric) {
-        isElectric = electric;
     }
 
     public String getPlateNumber() {
